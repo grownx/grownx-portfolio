@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GrownX — Digital Growth Agency</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300&family=League+Spartan:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+:root{
+  --c1:#1ecad3;--c2:#6edc8a;--c3:#ffde59;
+  --grad:linear-gradient(90deg,#1ecad3,#6edc8a,#ffde59);
+  --grad135:linear-gradient(135deg,#1ecad3,#6edc8a,#ffde59);
+  --bg0:#000;--bg1:#06060f;--bg2:#0a0a18;--bg3:#07070e;
+  --card:#0d0d1c;--card2:#11111f;
+  --border:rgba(255,255,255,0.07);--border2:rgba(30,202,211,0.25);
+  --text-primary:#e8e8e8;--text-secondary:#888;--text-muted:#555;
+}
+body{background:var(--bg0);color:var(--text-primary);font-family:'Montserrat',sans-serif;overflow-x:hidden;cursor:none;}
+::-webkit-scrollbar{width:2px;}::-webkit-scrollbar-track{background:#000;}::-webkit-scrollbar-thumb{background:var(--c1);}
+
+/* ── CURSOR ── */
+.cur-dot{position:fixed;top:0;left:0;z-index:9999;width:7px;height:7px;border-radius:50%;background:#6edc8a;pointer-events:none;transform:translate(-50%,-50%);transition:transform .05s;}
+.cur-ring{position:fixed;top:0;left:0;z-index:9998;width:34px;height:34px;border-radius:50%;border:1px solid rgba(110,220,138,0.4);pointer-events:none;transform:translate(-50%,-50%);transition:transform .16s ease,width .2s,height .2s,border-color .2s;}
+body:has(a:hover) .cur-ring,body:has(button:hover) .cur-ring{width:52px;height:52px;border-color:rgba(255,222,89,0.65);}
+
+/* ── PROGRESS BAR ── */
+.progress-bar{position:fixed;top:0;left:0;height:2px;background:var(--grad);z-index:9997;width:0%;transition:width .08s linear;}
+
+/* ── NOISE ── */
+body::before{content:'';position:fixed;inset:0;z-index:1;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:.025;pointer-events:none;}
+
+/* ── NAV ── */
+nav{position:fixed;inset:0 0 auto;z-index:300;display:flex;align-items:center;justify-content:space-between;padding:0 64px;height:66px;background:rgba(0,0,0,0.88);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);transition:background .3s;}
+.nb{font-size:20px;font-weight:900;letter-spacing:-.02em;}
+.grad-text{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.nl{display:flex;gap:30px;list-style:none;}
+.nl a{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#555;text-decoration:none;font-weight:600;transition:color .2s;position:relative;}
+.nl a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--c1);transition:width .3s;}
+.nl a:hover{color:#ddd;}
+.nl a:hover::after{width:100%;}
+.nc{font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:700;color:#000;background:var(--grad);padding:10px 22px;text-decoration:none;transition:opacity .2s,transform .2s;}
+.nc:hover{opacity:.85;transform:translateY(-1px);}
+
+/* ── REVEAL ANIMATIONS ── */
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .85s cubic-bezier(.22,1,.36,1),transform .85s cubic-bezier(.22,1,.36,1);}
+.reveal.on{opacity:1;transform:translateY(0);}
+.reveal-l{opacity:0;transform:translateX(-36px);transition:opacity .85s cubic-bezier(.22,1,.36,1),transform .85s cubic-bezier(.22,1,.36,1);}
+.reveal-l.on{opacity:1;transform:translateX(0);}
+.reveal-r{opacity:0;transform:translateX(36px);transition:opacity .85s cubic-bezier(.22,1,.36,1),transform .85s cubic-bezier(.22,1,.36,1);}
+.reveal-r.on{opacity:1;transform:translateX(0);}
+.reveal-scale{opacity:0;transform:scale(.94);transition:opacity .85s cubic-bezier(.22,1,.36,1),transform .85s cubic-bezier(.22,1,.36,1);}
+.reveal-scale.on{opacity:1;transform:scale(1);}
+.delay-1{transition-delay:.1s!important;}
+.delay-2{transition-delay:.2s!important;}
+.delay-3{transition-delay:.3s!important;}
+.delay-4{transition-delay:.4s!important;}
+.delay-5{transition-delay:.5s!important;}
+
+/* ── COMMONS ── */
+.wrap{max-width:1160px;margin:0 auto;}
+.stag{display:inline-flex;align-items:center;gap:10px;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--c1);margin-bottom:18px;font-weight:700;}
+.stag::before{content:'';display:block;width:20px;height:1px;background:var(--c1);}
+.sh2{font-size:clamp(30px,4vw,54px);font-weight:900;line-height:1.05;letter-spacing:-1.5px;margin-bottom:14px;color:var(--text-primary);}
+.ssub{font-size:14px;color:var(--text-secondary);max-width:440px;line-height:1.9;margin-bottom:52px;}
+.sdiv{width:48px;height:2px;background:var(--grad);margin-bottom:48px;}
+section{padding:120px 64px;}
+
+/* ── HERO ── */
+#hero{
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:100px 40px 80px;position:relative;overflow:hidden;
+  background:
+    radial-gradient(ellipse 100% 70% at 50% -5%,rgba(30,202,211,0.13) 0%,transparent 60%),
+    radial-gradient(ellipse 70% 50% at 90% 90%,rgba(110,220,138,0.07) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 40% at 10% 80%,rgba(255,222,89,0.04) 0%,transparent 50%),
+    #000;
+}
+/* animated grid */
+#hero::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(30,202,211,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(30,202,211,0.06) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(ellipse 85% 85% at 50% 50%,black 30%,transparent 80%);
+  animation:gridDrift 20s linear infinite;
+}
+@keyframes gridDrift{0%{background-position:0 0,0 0;}100%{background-position:64px 64px,64px 64px;}}
+#hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:180px;background:linear-gradient(transparent,#000);pointer-events:none;}
+
+/* orbs */
+.orb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;}
+.orb1{width:520px;height:520px;background:rgba(30,202,211,0.18);top:-140px;left:-140px;animation:orbF1 16s ease-in-out infinite;}
+.orb2{width:400px;height:400px;background:rgba(110,220,138,0.14);bottom:-100px;right:-80px;animation:orbF2 14s ease-in-out infinite;}
+.orb3{width:280px;height:280px;background:rgba(255,222,89,0.07);top:40%;left:60%;animation:orbF3 18s ease-in-out infinite;}
+@keyframes orbF1{0%,100%{transform:translate(0,0);}50%{transform:translate(40px,-30px);}}
+@keyframes orbF2{0%,100%{transform:translate(0,0);}50%{transform:translate(-30px,40px);}}
+@keyframes orbF3{0%,100%{transform:translate(0,0);}50%{transform:translate(-20px,-20px);}}
+
+.hbadge{display:inline-flex;align-items:center;gap:10px;z-index:5;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--c1);border:1px solid rgba(30,202,211,0.25);padding:7px 18px;margin-bottom:32px;animation:fu .8s ease both;position:relative;}
+.hdot{width:6px;height:6px;border-radius:50%;background:var(--c1);animation:blink 2s infinite;flex-shrink:0;}
+/* badge items with dividers */
+.hbadge-sep{color:rgba(30,202,211,0.3);margin:0 4px;}
+
+.hh1{font-size:clamp(48px,8vw,108px);font-weight:900;line-height:.95;letter-spacing:-3px;margin-bottom:28px;z-index:5;position:relative;animation:fu .8s .12s ease both;}
+.hp{font-size:16px;color:var(--text-secondary);max-width:500px;line-height:1.9;margin-bottom:48px;z-index:5;position:relative;animation:fu .8s .22s ease both;}
+.hbtns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;z-index:5;position:relative;animation:fu .8s .32s ease both;}
+.btn-g{background:var(--grad);color:#000;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:15px 34px;text-decoration:none;transition:opacity .2s,transform .2s,box-shadow .2s;display:inline-block;}
+.btn-g:hover{opacity:.88;transform:translateY(-2px);box-shadow:0 12px 32px rgba(30,202,211,0.2);}
+.btn-o{background:transparent;color:#999;border:1px solid rgba(255,255,255,0.12);font-family:'Montserrat',sans-serif;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:15px 34px;text-decoration:none;transition:border-color .2s,color .2s,transform .2s;display:inline-block;}
+.btn-o:hover{border-color:rgba(255,255,255,.28);color:#ddd;transform:translateY(-2px);}
+.hscroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;z-index:5;animation:fu .8s .55s ease both;}
+.hscroll span{font-size:8px;letter-spacing:3px;color:#2a2a2a;text-transform:uppercase;}
+.sline{width:1px;height:44px;background:linear-gradient(var(--c1),transparent);animation:sa 1.9s ease-in-out infinite;}
+
+/* ── ABOUT ── */
+#about{background:var(--bg1);border-top:1px solid var(--border);position:relative;}
+#about::after{content:'';position:absolute;right:0;top:0;width:45%;height:100%;background:radial-gradient(ellipse at right,rgba(30,202,211,0.05),transparent 60%);pointer-events:none;}
+.ag{display:grid;grid-template-columns:1.1fr .9fr;gap:80px;align-items:start;}
+.at p{font-size:17px;color:#aaa;line-height:1.95;margin-bottom:20px;}
+.at b{color:#ddd;font-weight:600;}
+.kw{display:inline-block;margin-top:28px;background:var(--grad);color:#000;font-size:9px;font-weight:800;letter-spacing:3px;text-transform:uppercase;padding:9px 22px;}
+.astats{display:flex;flex-direction:column;gap:18px;}
+.asc{padding:28px 32px;background:var(--card);border:1px solid var(--border);position:relative;overflow:hidden;transition:background .3s,transform .3s,border-color .3s;}
+.asc::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:var(--grad);}
+.asc:hover{background:var(--card2);transform:translateX(4px);border-color:var(--border2);}
+.asn{font-size:46px;font-weight:900;line-height:1;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-family:'League Spartan',sans-serif;}
+.asl{font-size:11px;color:var(--text-secondary);margin-top:6px;letter-spacing:1px;}
+
+/* ── APPROACH ── */
+#approach{padding:120px 64px;background:var(--bg2);border-top:1px solid var(--border);position:relative;overflow:hidden;}
+#approach::before{content:'';position:absolute;bottom:-180px;left:-180px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(110,220,138,0.05),transparent 65%);pointer-events:none;}
+.sgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-top:56px;}
+.stp{background:var(--bg2);padding:44px 32px;position:relative;overflow:hidden;transition:background .3s;}
+.stp:hover{background:#0f0f22;}
+.snum{font-size:80px;font-weight:900;color:rgba(255,255,255,0.03);font-family:'League Spartan',sans-serif;line-height:1;position:absolute;right:16px;top:12px;}
+/* icon boxes with emoji instead of SVG numbers */
+.sico{width:40px;height:40px;border-radius:10px;background:rgba(30,202,211,0.08);border:1px solid rgba(30,202,211,0.15);display:flex;align-items:center;justify-content:center;margin-bottom:22px;font-size:18px;transition:background .3s,border-color .3s;}
+.stp:hover .sico{background:rgba(30,202,211,0.14);border-color:rgba(30,202,211,0.3);}
+.stitle{font-size:15px;font-weight:800;margin-bottom:12px;}
+.sdesc{font-size:12px;color:var(--text-secondary);line-height:1.8;margin-bottom:16px;}
+.sul{list-style:none;}
+.sul li{font-size:11px;color:var(--text-muted);padding:4px 0 4px 14px;position:relative;line-height:1.6;}
+.sul li::before{content:'↳';position:absolute;left:0;color:rgba(30,202,211,0.6);font-size:10px;top:5px;}
+
+/* ── SERVICES ── */
+#services{padding:120px 64px;background:var(--bg3);border-top:1px solid var(--border);}
+.svgrid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:56px;}
+.svc{background:var(--card);border:1px solid var(--border);padding:48px 44px;position:relative;overflow:hidden;transition:border-color .35s,transform .3s;}
+.svc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform .4s ease;}
+.svc:hover{border-color:var(--border2);transform:translateY(-4px);}
+.svc:hover::after{transform:scaleX(1);}
+/* service icon instead of number */
+.svc-icon{width:46px;height:46px;border-radius:12px;background:rgba(30,202,211,0.08);border:1px solid rgba(30,202,211,0.14);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:20px;transition:background .3s,border-color .3s;}
+.svc:hover .svc-icon{background:rgba(30,202,211,0.15);border-color:rgba(30,202,211,0.35);}
+.svt{font-size:20px;font-weight:800;margin-bottom:14px;line-height:1.2;color:var(--text-primary);}
+.svd{font-size:13px;color:var(--text-secondary);line-height:1.85;margin-bottom:22px;}
+.svtags{display:flex;flex-wrap:wrap;gap:8px;}
+/* FIXED: tags always visible, proper border that shows on hover */
+.svtag{font-size:9px;letter-spacing:1px;text-transform:uppercase;color:#777;border:1px solid rgba(255,255,255,0.1);padding:5px 12px;font-weight:700;transition:border-color .25s,color .25s,background .25s;}
+.svc:hover .svtag{border-color:rgba(30,202,211,0.4);color:var(--c1);background:rgba(30,202,211,0.06);}
+
+/* ── WHY FAIL ── */
+#why-fail{padding:120px 64px;background:var(--bg1);border-top:1px solid var(--border);position:relative;}
+#why-fail::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 100%,rgba(226,74,74,0.05),transparent 60%);pointer-events:none;}
+.wfgrid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.wfl .bq{font-size:clamp(24px,2.5vw,38px);font-weight:900;line-height:1.25;letter-spacing:-1px;margin-bottom:22px;color:var(--text-primary);}
+.wfl p{font-size:15px;color:var(--text-secondary);line-height:1.9;}
+.wfl .stmt{font-size:17px;color:#ccc;font-weight:600;line-height:1.7;margin-top:28px;padding:22px 26px;border-left:3px solid var(--c1);background:rgba(30,202,211,0.05);}
+/* curly bracket grouping for the right column */
+.wfr-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--c1);font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.wfr-label::before{content:'';display:block;width:16px;height:1px;background:var(--c1);}
+.wfr-bracket{display:flex;gap:0;align-items:stretch;}
+.bracket-line{width:12px;border-left:2px solid rgba(30,202,211,0.3);border-top:2px solid rgba(30,202,211,0.3);border-bottom:2px solid rgba(30,202,211,0.3);border-radius:4px 0 0 4px;flex-shrink:0;margin-right:14px;}
+.wfr-items{display:flex;flex-direction:column;gap:10px;flex:1;}
+.wfi{display:flex;align-items:flex-start;gap:14px;padding:16px 20px;background:var(--card);border:1px solid var(--border);transition:border-color .3s,background .3s,transform .2s;}
+.wfi:hover{border-color:rgba(226,74,74,0.22);background:var(--card2);transform:translateX(4px);}
+.wfd{width:7px;height:7px;border-radius:50%;background:#e24a4a;flex-shrink:0;margin-top:7px;}
+.wft{font-size:13px;color:var(--text-secondary);line-height:1.7;}
+
+/* ── FRAMEWORK ── */
+#framework{padding:120px 64px;background:var(--bg2);border-top:1px solid var(--border);}
+.fwg{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:56px;}
+.fwc{background:var(--card);border:1px solid var(--border);padding:52px;position:relative;overflow:hidden;transition:border-color .3s,transform .3s;}
+.fwc:hover{border-color:var(--border2);transform:translateY(-3px);}
+.fwc::after{content:'';position:absolute;top:-80px;right:-80px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(30,202,211,0.07),transparent 70%);pointer-events:none;}
+.fwbig{font-size:96px;font-weight:900;line-height:1;font-family:'League Spartan',sans-serif;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px;}
+.fwst{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--c1);margin-bottom:18px;}
+.fwt{font-size:20px;font-weight:700;margin-bottom:12px;color:var(--text-primary);}
+.fwd{font-size:13px;color:var(--text-secondary);line-height:1.85;}
+.fwl{list-style:none;margin-top:18px;}
+.fwl li{font-size:12px;color:var(--text-secondary);padding:5px 0 5px 16px;position:relative;line-height:1.6;}
+.fwl li::before{content:'→';position:absolute;left:0;color:var(--c2);font-size:10px;}
+
+/* GROWTH CYCLE — redesigned with step arrows */
+.cyc-wrap{grid-column:1/-1;margin-top:4px;}
+.cyc-header{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--c1);font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.cyc-header::before{content:'';display:block;width:20px;height:1px;background:var(--c1);}
+.cyc{background:var(--card);border:1px solid var(--border);display:flex;align-items:stretch;overflow:hidden;position:relative;}
+.cy{flex:1;padding:28px 20px;text-align:center;position:relative;transition:background .3s;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.cy:hover{background:#111120;}
+.cy::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+.cy:hover::before{transform:scaleX(1);}
+/* arrow between steps */
+.cy-arrow{display:flex;align-items:center;justify-content:center;padding:0 4px;color:rgba(30,202,211,0.25);font-size:18px;flex-shrink:0;align-self:center;}
+.cy-step-num{font-size:8px;color:var(--c1);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;font-weight:700;}
+.cy-icon{font-size:22px;margin-bottom:8px;}
+.cyt{font-size:13px;font-weight:800;margin-bottom:3px;color:var(--text-primary);}
+.cys{font-size:10px;color:var(--text-secondary);}
+/* animated pulse on active step */
+@keyframes stepPulse{0%,100%{box-shadow:0 0 0 0 rgba(30,202,211,0);}50%{box-shadow:0 0 0 6px rgba(30,202,211,0.08);}}
+.cy:nth-child(1){animation:stepPulse 3s 0s infinite;}
+.cy:nth-child(3){animation:stepPulse 3s .75s infinite;}
+.cy:nth-child(5){animation:stepPulse 3s 1.5s infinite;}
+.cy:nth-child(7){animation:stepPulse 3s 2.25s infinite;}
+
+/* ── WHY US ── */
+#why-us{padding:120px 64px;background:var(--bg3);border-top:1px solid var(--border);position:relative;}
+#why-us::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:700px;height:1px;background:linear-gradient(90deg,transparent,var(--c1),transparent);}
+.wug{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:56px;}
+.wuc{background:var(--card);border:1px solid var(--border);padding:38px 34px;transition:border-color .3s,background .3s,transform .3s;}
+.wuc:hover{border-color:var(--border2);background:var(--card2);transform:translateY(-5px);}
+.wuico{width:42px;height:42px;border-radius:11px;background:rgba(30,202,211,0.07);border:1px solid rgba(30,202,211,0.12);display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:19px;transition:background .3s,border-color .3s;}
+.wuc:hover .wuico{background:rgba(30,202,211,0.14);border-color:rgba(30,202,211,0.3);}
+.wut{font-size:16px;font-weight:800;margin-bottom:10px;color:var(--text-primary);}
+.wud{font-size:12px;color:var(--text-secondary);line-height:1.85;}
+.wucc{background:linear-gradient(135deg,#09091a,#0e0e20);border:1px solid rgba(30,202,211,0.16);padding:38px 34px;display:flex;flex-direction:column;justify-content:space-between;transition:border-color .3s,transform .3s;}
+.wucc:hover{border-color:rgba(30,202,211,0.35);transform:translateY(-5px);}
+.wucc p{font-size:20px;font-weight:900;line-height:1.3;margin-bottom:22px;color:var(--text-primary);}
+
+/* ── CONTACT ── */
+#contact{padding:120px 64px;background:var(--bg1);border-top:1px solid var(--border);position:relative;overflow:hidden;}
+#contact::before{content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(30,202,211,0.07),transparent 60%);pointer-events:none;}
+.ctop{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:end;margin-bottom:56px;}
+.cth{font-size:clamp(34px,4vw,60px);font-weight:900;letter-spacing:-2px;line-height:1.05;color:var(--text-primary);}
+.ctsub{font-size:14px;color:var(--text-secondary);line-height:1.9;}
+.ctcards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:36px;}
+.ctc{background:var(--card);border:1px solid var(--border);padding:22px 26px;transition:border-color .3s,background .3s,transform .2s;}
+.ctc:hover{border-color:var(--border2);background:var(--card2);transform:translateY(-2px);}
+.ctc-icon{font-size:20px;margin-bottom:10px;}
+.ctl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#444;margin-bottom:8px;font-weight:700;}
+.ctv{font-size:13px;font-weight:600;color:#ccc;}
+.ctv a{color:#ccc;text-decoration:none;transition:color .2s;}
+.ctv a:hover{color:var(--c1);}
+
+/* Social links — real links opening new tab */
+.socs{display:flex;gap:14px;flex-wrap:wrap;margin-top:4px;}
+.socl{display:inline-flex;align-items:center;gap:8px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#999;text-decoration:none;font-weight:700;padding:10px 18px;border:1px solid rgba(255,255,255,0.1);transition:color .25s,border-color .25s,background .25s,transform .2s;}
+.socl:hover{color:var(--c1);border-color:rgba(30,202,211,0.4);background:rgba(30,202,211,0.06);transform:translateY(-2px);}
+.socl-icon{font-size:14px;}
+.contact-cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:36px;}
+
+/* ── FOOTER ── */
+footer{background:#000;border-top:1px solid var(--border);padding:30px 64px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+.ftb{font-size:16px;font-weight:900;}
+.ftl{font-size:10px;color:#555;letter-spacing:1px;text-transform:uppercase;}
+
+.grad-text-grow{font-weight: 500;}
+
+/* ── KEYFRAMES ── */
+@keyframes fu{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.6);}}
+@keyframes sa{0%{opacity:0;transform:scaleY(0);transform-origin:top;}50%{opacity:1;transform:scaleY(1);}100%{opacity:0;transform:scaleY(0);transform-origin:bottom;}}
+
+/* ── MOBILE ── */
+@media(max-width:960px){
+  nav{padding:0 18px;height:60px;}
+  .nl{display:none;}
+  .nb{font-size:17px;}
+  .nc{font-size:10px;padding:8px 16px;}
+  section{padding:80px 22px;}
+  #hero{padding:90px 22px 70px;}
+  .hh1{font-size:clamp(38px,11vw,72px);letter-spacing:-2px;}
+  .hp{font-size:14px;}
+  .hbtns{gap:10px;}
+  .btn-g,.btn-o{font-size:11px;padding:13px 24px;}
+  .ag,.wfgrid,.fwg,.ctop{grid-template-columns:1fr;gap:40px;}
+  .sgrid{grid-template-columns:1fr 1fr;}
+  .svgrid,.wug,.ctcards{grid-template-columns:1fr;}
+  .wfr-bracket{gap:0;}
+  .bracket-line{width:8px;margin-right:10px;}
+  .cyc{flex-direction:column;}
+  .cy{border-right:none;border-bottom:1px solid var(--border);}
+  .cy:last-child{border-bottom:none;}
+  .cy-arrow{display:none;}
+  footer{padding:22px 18px;flex-direction:column;text-align:center;}
+  .ctop{gap:24px;}
+  .socs{gap:10px;}
+  .contact-cta-row{flex-direction:column;}
+  .contact-cta-row .btn-g,.contact-cta-row .btn-o{text-align:center;}
+  .wug{grid-template-columns:1fr;}
+  .fwc{padding:36px 28px;}
+  .fwbig{font-size:72px;}
+}
+@media(max-width:600px){
+  .sgrid{grid-template-columns:1fr;}
+  .hh1{font-size:clamp(34px,10vw,56px);}
+  .svc{padding:32px 24px;}
+  .wfgrid{gap:36px;}
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cur-dot"></div>
+<div class="cur-ring"></div>
+<div class="progress-bar" id="prog"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nb"><span class="grad-text-grow">Grow</span><span class="grad-text">nX</span></div>
+  <ul class="nl">
+    <li><a href="#about">About</a></li>
+    <li><a href="#approach">Approach</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#framework">Framework</a></li>
+    <li><a href="#why-us">Why Us</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLScAGCfGt4-g0O2sAlS39yJMU4g4UeLOryfb4hqNGiFdZaYXIQ/viewform?fbclid=PAb21jcAQ9kMJleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAafbyoEIyZP8WH2xKGLJhpe1dQUxpjZGTQMKv_ducMoqtyN5IJURJqgizsRVcg_aem_feU0sG7uQFFZh4JxzXjc_Q&utm_source=ig&utm_medium=social&utm_content=link_in_bio" target="_blank" rel="noopener" class="nc">Let's Talk</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+
+  <!-- Change #3: refined badge with better phrasing & styling -->
+  <div class="hbadge">
+    <div class="hdot"></div>
+    <span>Digital Growth Agency</span>
+    <span class="hbadge-sep">·</span>
+    <span>Rajkot, Gujarat</span>
+  </div>
+
+  <h1 class="hh1">Grow Your Business<br>to the <span class="grad-text">nX Level.</span></h1>
+  <p class="hp">We build growth systems for founders and leaders who are done being invisible — and ready to be undeniable.</p>
+  <div class="hbtns">
+    <a href="#services" class="btn-g">Explore Services</a>
+    <a href="#contact" rel="noopener" class="btn-o">Get in Touch</a>
+  </div>
+  <div class="hscroll"><div class="sline"></div><span>Scroll</span></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="stag">01 — Business Overview</div>
+      <h2 class="sh2">Not Just Marketing.<br>A <span class="grad-text">Growth System.</span></h2>
+      <div class="sdiv"></div>
+    </div>
+    <div class="ag">
+      <div class="at reveal delay-1">
+        <p>GrownX is a <b>digital growth agency</b> built for brands that want real and structured online growth.</p>
+        <p>We help businesses turn their social media and ads into <b>predictable revenue channels.</b> Not viral moments. Not random posts.</p>
+        <p>But <b>systems that grow month after month.</b> Every strategy built with research, purpose, and execution — not guesswork.</p>
+        <!-- Change #2: replaced "Maximizing Growth" with better brand phrase -->
+        <div class="kw">Built to Grow. Driven by Data.</div>
+      </div>
+      <div class="astats reveal delay-2">
+        <div class="asc"><div class="asn">4</div><div class="asl">Core Growth Pillars</div></div>
+        <div class="asc"><div class="asn">100%</div><div class="asl">Performance-Driven Approach</div></div>
+        <div class="asc"><div class="asn">1</div><div class="asl">Custom Strategy Per Brand — No Templates</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section id="approach">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="stag">02 — Our Process</div>
+      <h2 class="sh2">How We <span class="grad-text">Approach Growth</span></h2>
+      <div class="ssub">Every brand we work with goes through this exact 4-step growth system.</div>
+    </div>
+    <!-- Change #4: emoji icons instead of SVG numbers -->
+    <div class="sgrid reveal">
+      <div class="stp">
+        <div class="snum">01</div>
+        <div class="sico">🔍</div>
+        <div class="stitle grad-text">Research</div>
+        <p class="sdesc">Before we do anything, we understand your business properly. Without research, marketing becomes guessing.</p>
+        <ul class="sul">
+          <li>Who your customers are</li>
+          <li>What competitors are doing</li>
+          <li>What content works in your industry</li>
+          <li>Where ads bring better results</li>
+        </ul>
+      </div>
+      <div class="stp">
+        <div class="snum">02</div>
+        <div class="sico">🗺️</div>
+        <div class="stitle grad-text">Strategy</div>
+        <p class="sdesc">After research, we create a clear plan. Every brand gets a plan made only for them — no copy-paste strategies.</p>
+        <ul class="sul">
+          <li>What kind of content to post</li>
+          <li>How viewers become customers</li>
+          <li>How ads will support growth</li>
+          <li>How everything connects</li>
+        </ul>
+      </div>
+      <div class="stp">
+        <div class="snum">03</div>
+        <div class="sico">⚡</div>
+        <div class="stitle grad-text">Execution</div>
+        <p class="sdesc">Then we start the real work. No random posting. Everything is done with purpose and clear direction.</p>
+        <ul class="sul">
+          <li>Design posts and creatives</li>
+          <li>Create reels and videos</li>
+          <li>Set up and run ads</li>
+          <li>Generate leads and inquiries</li>
+        </ul>
+      </div>
+      <div class="stp">
+        <div class="snum">04</div>
+        <div class="sico">📈</div>
+        <div class="stitle grad-text">Optimization</div>
+        <p class="sdesc">Growth is not about posting. It's about improving consistently every single month through data.</p>
+        <ul class="sul">
+          <li>Which content performs best</li>
+          <li>Which ads bring results</li>
+          <li>Where we can improve</li>
+          <li>Monthly performance reviews</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="stag">03 — What We Offer</div>
+      <h2 class="sh2">Our <span class="grad-text">Services</span></h2>
+      <div class="ssub">Four focused services built to turn your online presence into a predictable growth engine.</div>
+    </div>
+    <!-- Change #4: emoji icons instead of numbers, fixed svtag border -->
+    <div class="svgrid">
+      <div class="svc reveal delay-1">
+        <div class="svc-icon">📱</div>
+        <h3 class="svt">Social Media Management</h3>
+        <p class="svd">We manage your social platforms in a structured way. We don't just post content — we create content that connects, builds trust, improves brand image, and supports your business goals. Research + creativity + strategy.</p>
+        <div class="svtags"><span class="svtag">Content Strategy</span><span class="svtag">Brand Voice</span><span class="svtag">Audience Growth</span></div>
+      </div>
+      <div class="svc reveal delay-2">
+        <div class="svc-icon">🎯</div>
+        <h3 class="svt">Digital Advertising</h3>
+        <p class="svd">We run paid ads that bring real results. No boosting for likes. Only performance-focused campaigns that reach the right audience, generate quality leads, improve inquiries, and use your budget wisely.</p>
+        <div class="svtags"><span class="svtag">Meta Ads</span><span class="svtag">Lead Generation</span><span class="svtag">Performance Campaigns</span></div>
+      </div>
+      <div class="svc reveal delay-1">
+        <div class="svc-icon">🧠</div>
+        <h3 class="svt">Growth Consulting</h3>
+        <p class="svd">Not sure what direction to take online? We help you define brand positioning, understand your audience, build a clear growth roadmap, and create a long-term strategy. Without direction, marketing becomes confusing.</p>
+        <div class="svtags"><span class="svtag">Brand Positioning</span><span class="svtag">Roadmap</span><span class="svtag">Long-Term Strategy</span></div>
+      </div>
+      <div class="svc reveal delay-2">
+        <div class="svc-icon">🎬</div>
+        <h3 class="svt">Short-Form Content Creation</h3>
+        <p class="svd">Short-form content works — but only when done correctly. We create reels and videos that grab attention in the first few seconds, tell your brand story, build trust, and encourage action. Trend + strategy + messaging.</p>
+        <div class="svtags"><span class="svtag">Reels & Videos</span><span class="svtag">Storytelling</span><span class="svtag">Trend Strategy</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY FAIL -->
+<section id="why-fail">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="stag">04 — Our Study</div>
+      <h2 class="sh2">Why Many Businesses<br><span class="grad-text">Fail Online</span></h2>
+      <div class="ssub">We studied the market. Here's what we found.</div>
+    </div>
+    <div class="wfgrid">
+      <div class="wfl reveal-l">
+        <!-- Change #5: curly bracket connecting the quote to its explanation -->
+        <div class="bq">Most businesses fail<br>not because of their product.</div>
+        <p>They fail because of how they show up online. Activity without intention is just noise.</p>
+        <div class="stmt">Digital growth is not about being active.<br>It's about being <span class="grad-text">intentional.</span></div>
+      </div>
+      <div class="wfr reveal-r">
+        <!-- Change #5: curly bracket visual grouping to signal "read together" -->
+        <div class="wfr-label">The Real Reasons — Why Most Businesses Fail</div>
+        <div class="wfr-bracket">
+          <div class="bracket-line"></div>
+          <div class="wfr-items">
+            <div class="wfi"><div class="wfd"></div><p class="wft">They post without strategy — activity without direction leads nowhere.</p></div>
+            <div class="wfi"><div class="wfd"></div><p class="wft">They don't understand their audience — messaging that doesn't connect, doesn't convert.</p></div>
+            <div class="wfi"><div class="wfd"></div><p class="wft">They don't run proper ads — boosting posts is not advertising.</p></div>
+            <div class="wfi"><div class="wfd"></div><p class="wft">They don't track performance — what isn't measured can't be improved.</p></div>
+            <div class="wfi"><div class="wfd"></div><p class="wft">They expect instant results — real growth takes consistent, structured effort.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FRAMEWORK -->
+<section id="framework">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="stag">05 — The GrownX System</div>
+      <h2 class="sh2">The <span class="grad-text">nX Framework</span></h2>
+      <div class="ssub">One clear growth system. Two powerful pillars. Built for consistent results.</div>
+    </div>
+    <div class="fwg reveal">
+      <div class="fwc">
+        <div class="fwbig">N</div>
+        <div class="fwst">= Niche Understanding</div>
+        <h3 class="fwt">Know Before You Grow</h3>
+        <p class="fwd">Before anything, we deeply understand your niche. Without this, growth is simply not possible.</p>
+        <ul class="fwl">
+          <li>Who is your audience?</li>
+          <li>What do they want?</li>
+          <li>What makes them trust?</li>
+          <li>What makes them buy?</li>
+        </ul>
+      </div>
+      <div class="fwc">
+        <div class="fwbig">X</div>
+        <div class="fwst">= Execution Multiplied</div>
+        <h3 class="fwt">Execute. Optimize. Multiply.</h3>
+        <p class="fwd">Once strategy is clear, execution begins — consistent, optimized, and performance-driven across every channel.</p>
+        <ul class="fwl">
+          <li>Strategic content creation</li>
+          <li>Paid advertising amplification</li>
+          <li>Continuous improvement cycles</li>
+        </ul>
+      </div>
+
+      <!-- Change #6: Growth Cycle with header, icons, arrow animations -->
+      <div class="cyc-wrap reveal">
+        <div class="cyc-header">Our Growth Cycle — Step by Step</div>
+        <div class="cyc">
+          <div class="cy">
+            <div class="cy-step-num">Step 01</div>
+            <div class="cy-icon">🔍</div>
+            <div class="cyt">Research</div>
+            <div class="cys">Foundation</div>
+          </div>
+          <div class="cy-arrow">→</div>
+          <div class="cy">
+            <div class="cy-step-num">Step 02</div>
+            <div class="cy-icon">✍️</div>
+            <div class="cyt">Content Engine</div>
+            <div class="cys">Creation</div>
+          </div>
+          <div class="cy-arrow">→</div>
+          <div class="cy">
+            <div class="cy-step-num">Step 03</div>
+            <div class="cy-icon">🚀</div>
+            <div class="cyt">Paid Boost</div>
+            <div class="cys">Amplify</div>
+          </div>
+          <div class="cy-arrow">→</div>
+          <div class="cy">
+            <div class="cy-step-num">Step 04</div>
+            <div class="cy-icon">📊</div>
+            <div class="cyt">Data Optimization</div>
+            <div class="cys">Improve</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why-us">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="stag">06 — Why GrownX</div>
+      <h2 class="sh2">Why Partner<br><span class="grad-text">With Us</span></h2>
+      <div class="ssub">Five reasons why growing businesses choose GrownX.</div>
+    </div>
+    <!-- Change #8: emoji icons in why-us cards -->
+    <div class="wug">
+      <div class="wuc reveal delay-1">
+        <div class="wuico">🏆</div>
+        <h3 class="wut">Performance-Driven Mindset</h3>
+        <p class="wud">We focus on results, not just activity. Everything we do is directly connected to your growth.</p>
+      </div>
+      <div class="wuc reveal delay-2">
+        <div class="wuico">📊</div>
+        <h3 class="wut">Data-Backed Decisions</h3>
+        <p class="wud">We don't guess. We track performance and make every decision based on real numbers and insights.</p>
+      </div>
+      <div class="wuc reveal delay-3">
+        <div class="wuico">🌱</div>
+        <h3 class="wut">Growth-First Approach</h3>
+        <p class="wud">Our goal is not just engagement. Our goal is to help your business grow steadily and sustainably.</p>
+      </div>
+      <div class="wuc reveal delay-1">
+        <div class="wuico">📋</div>
+        <h3 class="wut">Transparent Reporting</h3>
+        <p class="wud">You'll always know what's happening. Clear updates. Clear reports. No confusion, ever.</p>
+      </div>
+      <div class="wuc reveal delay-2">
+        <div class="wuico">✨</div>
+        <h3 class="wut">Custom Strategies</h3>
+        <p class="wud">Every business is different. Every strategy we create is made specifically for you — no templates.</p>
+      </div>
+      <div class="wucc reveal delay-3">
+        <p>Ready to go from invisible to <span class="grad-text">undeniable?</span></p>
+        <a href="#contact" rel="noopener" class="btn-g" style="text-align:center;">Let's Grow Together →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="ctop reveal">
+      <div>
+        <div class="stag">07 — Get in Touch</div>
+        <h2 class="cth">Let's Build<br><span class="grad-text">Something Real.</span></h2>
+      </div>
+      <p class="ctsub">If you're ready to take your business to the next level, GrownX is ready to grow with you. Let's build a strong digital presence and turn your platforms into powerful growth channels.</p>
+    </div>
+
+    <!-- Change #8 & #9: icons in cards + real social links -->
+    <div class="ctcards reveal">
+      <div class="ctc">
+        <div class="ctc-icon">📧</div>
+        <div class="ctl">Email</div>
+        <div class="ctv"><a href="mailto:grownx@gmail.com">grownx@gmail.com</a></div>
+      </div>
+      <div class="ctc">
+        <div class="ctc-icon">📍</div>
+        <div class="ctl">Location</div>
+        <div class="ctv">Rajkot, Gujarat · India</div>
+      </div>
+      <div class="ctc">
+        <div class="ctc-icon">💬</div>
+        <div class="ctl">Ready to Start?</div>
+        <div class="ctv"><a href="https://docs.google.com/forms/d/e/1FAIpQLScAGCfGt4-g0O2sAlS39yJMU4g4UeLOryfb4hqNGiFdZaYXIQ/viewform?fbclid=PAb21jcAQ9kMJleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAafbyoEIyZP8WH2xKGLJhpe1dQUxpjZGTQMKv_ducMoqtyN5IJURJqgizsRVcg_aem_feU0sG7uQFFZh4JxzXjc_Q&utm_source=ig&utm_medium=social&utm_content=link_in_bio" target="_blank" rel="noopener" style="color:var(--c1);text-decoration:none;font-weight:700;">Fill Inquiry Form →</a></div>
+      </div>
+    </div>
+
+    <!-- Change #9: real social links opening in new tab -->
+    <div class="reveal">
+      <p style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#333;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:10px;"><span style="display:block;width:16px;height:1px;background:#333;"></span>View Our Social Pages</p>
+      <div class="socs">
+        <a href="https://www.instagram.com/grownx._/" target="_blank" rel="noopener" class="socl">
+          <span class="socl-icon">📸</span> Instagram @grownx._
+        </a>
+        <a href="https://www.linkedin.com/company/grownxdigital/" target="_blank" rel="noopener" class="socl">
+          <span class="socl-icon">💼</span> LinkedIn — GrownX Digital
+        </a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScAGCfGt4-g0O2sAlS39yJMU4g4UeLOryfb4hqNGiFdZaYXIQ/viewform?fbclid=PAb21jcAQ9kMJleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAafbyoEIyZP8WH2xKGLJhpe1dQUxpjZGTQMKv_ducMoqtyN5IJURJqgizsRVcg_aem_feU0sG7uQFFZh4JxzXjc_Q&utm_source=ig&utm_medium=social&utm_content=link_in_bio" target="_blank" rel="noopener" class="socl">
+          <span class="socl-icon">📝</span> Start with an Inquiry
+        </a>
+      </div>
+    </div>
+
+    <!-- Change #10: contact CTA button -->
+    <!-- <div class="contact-cta-row reveal">
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLScAGCfGt4-g0O2sAlS39yJMU4g4UeLOryfb4hqNGiFdZaYXIQ/viewform?fbclid=PAb21jcAQ9kMJleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAafbyoEIyZP8WH2xKGLJhpe1dQUxpjZGTQMKv_ducMoqtyN5IJURJqgizsRVcg_aem_feU0sG7uQFFZh4JxzXjc_Q&utm_source=ig&utm_medium=social&utm_content=link_in_bio" target="_blank" rel="noopener" class="btn-g">Let's Talk — Fill the Form →</a>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLScAGCfGt4-g0O2sAlS39yJMU4g4UeLOryfb4hqNGiFdZaYXIQ/viewform?fbclid=PAb21jcAQ9kMJleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAafbyoEIyZP8WH2xKGLJhpe1dQUxpjZGTQMKv_ducMoqtyN5IJURJqgizsRVcg_aem_feU0sG7uQFFZh4JxzXjc_Q&utm_source=ig&utm_medium=social&utm_content=link_in_bio" target="_blank" rel="noopener" class="btn-o">Contact Us Now</a>
+    </div> -->
+  </div>
+</section>
+
+<!-- FOOTER — Change #7: readable footer text -->
+<footer>
+  <div class="ftb"><span class="grad-text-grow">Grow</span><span class="grad-text">nX</span></div>
+  <div class="ftl" style="color:#555;">© 2025 GrownX · All rights reserved</div>
+  <div class="ftl" style="color:#444;">Grow Your Business to the nX Level.</div>
+</footer>
+
+<script>
+// ── CURSOR ──
+const dot = document.querySelector('.cur-dot');
+const ring = document.querySelector('.cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX; my=e.clientY;
+  dot.style.left=mx+'px'; dot.style.top=my+'px';
+});
+(function animRing(){
+  rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+})();
+
+// ── PROGRESS BAR ──
+const prog = document.getElementById('prog');
+window.addEventListener('scroll',()=>{
+  const pct = window.scrollY/(document.body.scrollHeight-window.innerHeight)*100;
+  prog.style.width = Math.min(pct,100)+'%';
+},{ passive:true });
+
+// ── SCROLL REVEAL ──
+const allReveal = document.querySelectorAll('.reveal,.reveal-l,.reveal-r,.reveal-scale');
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('on'); }
+  });
+},{threshold:0.1, rootMargin:'0px 0px -40px 0px'});
+allReveal.forEach(el=>io.observe(el));
+
+// ── GROWTH CYCLE animated arrow pulse ──
+const arrows = document.querySelectorAll('.cy-arrow');
+let activeArrow = 0;
+setInterval(()=>{
+  arrows.forEach((a,i)=>{
+    a.style.color = i===activeArrow ? 'rgba(30,202,211,0.9)' : 'rgba(30,202,211,0.2)';
+    a.style.transform = i===activeArrow ? 'scale(1.3)' : 'scale(1)';
+    a.style.transition = 'color .4s, transform .4s';
+  });
+  activeArrow = (activeArrow+1)%arrows.length;
+},900);
+
+// ── NAV active highlight on scroll ──
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nl a');
+window.addEventListener('scroll',()=>{
+  let current='';
+  sections.forEach(s=>{
+    if(window.scrollY >= s.offsetTop - 120) current = s.id;
+  });
+  navLinks.forEach(a=>{
+    a.style.color = a.getAttribute('href')==='#'+current ? '#fff' : '';
+  });
+},{passive:true});
+</script>
+</body>
+</html>
