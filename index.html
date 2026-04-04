@@ -17,12 +17,12 @@ html{scroll-behavior:smooth;}
   --border:rgba(255,255,255,0.07);--border2:rgba(30,202,211,0.25);
   --text-primary:#e8e8e8;--text-secondary:#888;--text-muted:#555;
 }
-body{background:var(--bg0);color:var(--text-primary);font-family:'Montserrat',sans-serif;overflow-x:hidden;cursor:none;}
+body{background:var(--bg0);color:var(--text-primary);font-family:'Montserrat',sans-serif;cursor:none;}
 ::-webkit-scrollbar{width:2px;}::-webkit-scrollbar-track{background:#000;}::-webkit-scrollbar-thumb{background:var(--c1);}
 
 /* ── CURSOR ── */
 .cur-dot{position:fixed;top:0;left:0;z-index:9999;width:7px;height:7px;border-radius:50%;background:#6edc8a;pointer-events:none;transform:translate(-50%,-50%);transition:transform .05s;}
-.cur-ring{position:fixed;top:0;left:0;z-index:9998;width:34px;height:34px;border-radius:50%;border:1px solid rgba(110,220,138,0.4);pointer-events:none;transform:translate(-50%,-50%);transition:transform .16s ease,width .2s,height .2s,border-color .2s;}
+.cur-ring{position:fixed;top:0;left:0;z-index:9998;width:34px;height:34px;border-radius:50%;border:1px solid rgba(83, 225, 118, 0.4);pointer-events:none;transform:translate(-50%,-50%);transition:transform .16s ease,width .2s,height .2s,border-color .2s;}
 body:has(a:hover) .cur-ring,body:has(button:hover) .cur-ring{width:52px;height:52px;border-color:rgba(255,222,89,0.65);}
 
 /* ── PROGRESS BAR ── */
@@ -32,7 +32,7 @@ body:has(a:hover) .cur-ring,body:has(button:hover) .cur-ring{width:52px;height:5
 body::before{content:'';position:fixed;inset:0;z-index:1;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:.025;pointer-events:none;}
 
 /* ── NAV ── */
-nav{position:fixed;inset:0 0 auto;z-index:300;display:flex;align-items:center;justify-content:space-between;padding:0 64px;height:66px;background:rgba(0,0,0,0.88);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);transition:background .3s;}
+nav{position:fixed;inset:0 0 auto;z-index:300;display:flex;align-items:center;justify-content:space-between;padding:0 64px;height:66px;background:rgba(0,0,0,0.88);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);transition:background .3s;width:100%;}
 .nb{font-size:20px;font-weight:900;letter-spacing:-.02em;}
 .grad-text{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .nl{display:flex;gap:30px;list-style:none;}
@@ -65,7 +65,7 @@ nav{position:fixed;inset:0 0 auto;z-index:300;display:flex;align-items:center;ju
 .sh2{font-size:clamp(30px,4vw,54px);font-weight:900;line-height:1.05;letter-spacing:-1.5px;margin-bottom:14px;color:var(--text-primary);}
 .ssub{font-size:14px;color:var(--text-secondary);max-width:440px;line-height:1.9;margin-bottom:52px;}
 .sdiv{width:48px;height:2px;background:var(--grad);margin-bottom:48px;}
-section{padding:120px 64px;}
+section{padding:120px 64px;overflow:hidden;}
 
 /* ── HERO ── */
 #hero{
@@ -264,10 +264,10 @@ footer{background:#000;border-top:1px solid var(--border);padding:30px 64px;disp
 
 /* ── MOBILE ── */
 @media(max-width:960px){
-  nav{padding:0 18px;height:60px;}
+  nav{padding:0 16px;height:60px;}
   .nl{display:none;}
-  .nb{font-size:17px;}
-  .nc{font-size:10px;padding:8px 16px;}
+  .nb{font-size:17px;flex:1 1 auto;min-width:0;}
+  .nc{font-size:10px;padding:8px 14px;white-space:nowrap;flex-shrink:0;}
   section{padding:80px 22px;}
   #hero{padding:90px 22px 70px;}
   .hh1{font-size:clamp(38px,11vw,72px);letter-spacing:-2px;}
@@ -307,6 +307,7 @@ footer{background:#000;border-top:1px solid var(--border);padding:30px 64px;disp
 <div class="cur-ring"></div>
 <div class="progress-bar" id="prog"></div>
 
+<div style="overflow-x:hidden;width:100%;position:relative;">
 <!-- NAV -->
 <nav>
   <div class="nb"><span class="grad-text-grow">Grow</span><span class="grad-text">nX</span></div>
@@ -631,7 +632,7 @@ footer{background:#000;border-top:1px solid var(--border);padding:30px 64px;disp
       <div class="ctc">
         <div class="ctc-icon">📧</div>
         <div class="ctl">Email</div>
-        <div class="ctv"><a href="mailto:grownx@gmail.com">grownx@gmail.com</a></div>
+        <div class="ctv"><a href="mailto:hello@grownx.in">hello@grownx.in</a></div>
       </div>
       <div class="ctc">
         <div class="ctc-icon">📍</div>
@@ -675,6 +676,7 @@ footer{background:#000;border-top:1px solid var(--border);padding:30px 64px;disp
   <div class="ftl" style="color:#555;">© 2025 GrownX · All rights reserved</div>
   <div class="ftl" style="color:#444;">Grow Your Business to the nX Level.</div>
 </footer>
+</div><!-- end overflow wrapper -->
 
 <script>
 // ── CURSOR ──
@@ -704,7 +706,7 @@ const io = new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     if(e.isIntersecting){ e.target.classList.add('on'); }
   });
-},{threshold:0.1, rootMargin:'0px 0px -40px 0px'});
+},{threshold:0.12});
 allReveal.forEach(el=>io.observe(el));
 
 // ── GROWTH CYCLE animated arrow pulse ──
@@ -725,12 +727,14 @@ const navLinks = document.querySelectorAll('.nl a');
 window.addEventListener('scroll',()=>{
   let current='';
   sections.forEach(s=>{
-    if(window.scrollY >= s.offsetTop - 120) current = s.id;
+    const top = s.offsetTop - 120;
+    if(window.scrollY >= top) current = s.getAttribute('id');
   });
   navLinks.forEach(a=>{
-    a.style.color = a.getAttribute('href')==='#'+current ? '#fff' : '';
+    a.style.color = '';
+    if(a.getAttribute('href')==='#'+current) a.style.color='var(--c1)';
   });
-},{passive:true});
+},{ passive:true });
 </script>
 </body>
 </html>
