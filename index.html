@@ -298,6 +298,98 @@ footer{background:#000;border-top:1px solid var(--border);padding:30px 64px;disp
   .svc{padding:32px 24px;}
   .wfgrid{gap:36px;}
 }
+
+/* ── OUR WORK ── */
+#our-work{background:var(--bg2);border-top:1px solid var(--border);padding:120px 64px;overflow:hidden;}
+
+/* Industry tab filters */
+.ow-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:56px;}
+.ow-tab{font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700;padding:10px 22px;border:1px solid var(--border);color:var(--text-secondary);background:transparent;cursor:pointer;font-family:'Montserrat',sans-serif;transition:all .25s;}
+.ow-tab:hover{border-color:var(--border2);color:#ddd;}
+.ow-tab.active{background:var(--grad);color:#000;border-color:transparent;}
+
+/* Fan stack — 3 cards stacked with peek */
+.ow-fan-row{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-bottom:64px;}
+.ow-fan{position:relative;cursor:pointer;}
+.ow-fan-stack{position:relative;height:320px;margin-bottom:18px;}
+.ow-fan-card{position:absolute;inset:0;border-radius:2px;overflow:hidden;border:1px solid var(--border);transition:transform .4s cubic-bezier(.22,1,.36,1),box-shadow .4s,border-color .3s;}
+.ow-fan-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.22,1,.36,1);}
+.ow-fan-card:nth-child(3){transform:rotate(-4deg) translateY(8px) scale(.95);z-index:1;}
+.ow-fan-card:nth-child(2){transform:rotate(-2deg) translateY(4px) scale(.97);z-index:2;}
+.ow-fan-card:nth-child(1){transform:rotate(0deg) translateY(0) scale(1);z-index:3;}
+.ow-fan:hover .ow-fan-card:nth-child(3){transform:rotate(-7deg) translateY(16px) scale(.92);}
+.ow-fan:hover .ow-fan-card:nth-child(2){transform:rotate(-3.5deg) translateY(8px) scale(.96);}
+.ow-fan:hover .ow-fan-card:nth-child(1){transform:rotate(0) translateY(-6px) scale(1.02);box-shadow:0 24px 60px rgba(0,0,0,.6);border-color:var(--border2);}
+.ow-fan:hover .ow-fan-card:nth-child(1) img{transform:scale(1.04);}
+
+/* hover overlay on top card */
+.ow-fan-overlay{position:absolute;inset:0;z-index:4;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,transparent 50%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:22px;border-radius:2px;}
+.ow-fan:hover .ow-fan-overlay{opacity:1;}
+.ow-overlay-text{font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px;}
+.ow-overlay-text::after{content:'→';font-size:14px;}
+
+/* count badge */
+.ow-fan-count{position:absolute;top:14px;right:14px;z-index:5;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);border:1px solid var(--border);font-size:9px;letter-spacing:1.5px;color:var(--text-secondary);padding:5px 10px;font-weight:700;text-transform:uppercase;}
+
+/* fan meta below */
+.ow-fan-meta{}
+.ow-fan-industry{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--c1);font-weight:700;margin-bottom:6px;}
+.ow-fan-title{font-size:15px;font-weight:800;color:var(--text-primary);margin-bottom:4px;}
+.ow-fan-desc{font-size:12px;color:var(--text-secondary);line-height:1.7;}
+
+/* ── VIDEO SHOWCASE ── */
+.ow-video-row{margin-top:20px;}
+.ow-video-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--c1);font-weight:700;margin-bottom:24px;display:flex;align-items:center;gap:10px;}
+.ow-video-label::before{content:'';display:block;width:20px;height:1px;background:var(--c1);}
+.ow-video-wrap{display:grid;grid-template-columns:300px 1fr;gap:40px;align-items:center;background:var(--card);border:1px solid var(--border);overflow:hidden;}
+.ow-video-phone{position:relative;width:300px;background:#000;aspect-ratio:9/16;overflow:hidden;flex-shrink:0;}
+.ow-video-phone video{width:100%;height:100%;object-fit:cover;display:block;}
+.ow-video-phone-frame{position:absolute;inset:0;border:2px solid rgba(255,255,255,0.06);pointer-events:none;z-index:2;}
+.ow-video-notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:80px;height:20px;background:#000;z-index:3;border-radius:0 0 12px 12px;}
+.ow-video-info{padding:40px 40px 40px 0;}
+.ow-video-tag{display:inline-flex;align-items:center;gap:8px;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--c3);border:1px solid rgba(255,222,89,0.2);padding:6px 14px;margin-bottom:20px;}
+.ow-video-title{font-size:clamp(20px,2.5vw,32px);font-weight:900;line-height:1.1;letter-spacing:-1px;margin-bottom:14px;color:var(--text-primary);}
+.ow-video-desc{font-size:13px;color:var(--text-secondary);line-height:1.85;margin-bottom:24px;}
+.ow-video-stats{display:flex;gap:28px;}
+.ow-video-stat-val{font-family:'League Spartan',sans-serif;font-size:28px;font-weight:900;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;}
+.ow-video-stat-lbl{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-secondary);margin-top:4px;font-weight:600;}
+.ow-video-play{display:inline-flex;align-items:center;gap:10px;margin-top:28px;font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:#000;background:var(--grad);padding:12px 28px;cursor:pointer;border:none;font-family:'Montserrat',sans-serif;transition:opacity .2s,transform .2s;}
+.ow-video-play:hover{opacity:.88;transform:translateY(-2px);}
+
+/* ── LIGHTBOX ── */
+.ow-lb{position:fixed;inset:0;z-index:9990;background:rgba(0,0,0,.95);backdrop-filter:blur(16px);display:none;align-items:center;justify-content:center;flex-direction:column;}
+.ow-lb.open{display:flex;}
+.ow-lb-close{position:absolute;top:24px;right:28px;font-size:28px;color:#555;cursor:pointer;z-index:9999;line-height:1;transition:color .2s;}
+.ow-lb-close:hover{color:#fff;}
+.ow-lb-title{position:absolute;top:28px;left:50%;transform:translateX(-50%);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#444;font-weight:700;white-space:nowrap;}
+.ow-lb-main{position:relative;display:flex;align-items:center;justify-content:center;width:100%;max-width:680px;padding:0 70px;}
+.ow-lb-img{width:100%;aspect-ratio:4/5;object-fit:contain;border:1px solid rgba(255,255,255,0.08);user-select:none;}
+.ow-lb-prev,.ow-lb-next{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border:1px solid rgba(255,255,255,0.1);background:rgba(0,0,0,.6);color:#888;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .2s,color .2s,background .2s;z-index:10;}
+.ow-lb-prev{left:0;}.ow-lb-next{right:0;}
+.ow-lb-prev:hover,.ow-lb-next:hover{border-color:rgba(255,255,255,.3);color:#fff;background:rgba(30,202,211,0.1);}
+.ow-lb-dots{display:flex;gap:8px;margin-top:24px;}
+.ow-lb-dot{width:6px;height:6px;border-radius:50%;background:#222;cursor:pointer;transition:background .2s,transform .2s;}
+.ow-lb-dot.active{background:var(--c1);transform:scale(1.4);}
+.ow-lb-counter{font-size:10px;letter-spacing:2px;color:#333;margin-top:14px;font-weight:700;}
+.ow-lb-industry{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--c1);margin-top:6px;font-weight:700;}
+
+/* mobile */
+@media(max-width:960px){
+  #our-work{padding:80px 22px;}
+  .ow-fan-row{grid-template-columns:1fr;gap:48px;}
+  .ow-fan-stack{height:260px;}
+  .ow-video-wrap{grid-template-columns:1fr;gap:0;}
+  .ow-video-phone{width:100%;aspect-ratio:9/16;max-height:380px;}
+  .ow-video-info{padding:28px 24px;}
+  .ow-video-stats{gap:20px;}
+  .ow-lb-main{padding:0 50px;max-width:100%;padding-left:56px;padding-right:56px;}
+}
+@media(max-width:600px){
+  .ow-fan-row{grid-template-columns:1fr;}
+  .ow-fan-stack{height:220px;}
+  .ow-tabs{gap:8px;}
+  .ow-tab{font-size:8px;padding:8px 14px;}
+}
 </style>
 </head>
 <body>
@@ -315,6 +407,7 @@ footer{background:#000;border-top:1px solid var(--border);padding:30px 64px;disp
     <li><a href="#about">About</a></li>
     <li><a href="#approach">Approach</a></li>
     <li><a href="#services">Services</a></li>
+    <li><a href="#our-work">Our Work</a></li>
     <li><a href="#framework">Framework</a></li>
     <li><a href="#why-us">Why Us</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -469,6 +562,106 @@ footer{background:#000;border-top:1px solid var(--border);padding:30px 64px;disp
     </div>
   </div>
 </section>
+
+<!-- OUR WORK -->
+<section id="our-work">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="stag">03.5 — Our Work</div>
+      <h2 class="sh2">Work That <span class="grad-text">Speaks</span></h2>
+      <div class="ssub">Real content designed for real brands — carousel series crafted for three different industries.</div>
+    </div>
+
+    <!-- CAROUSEL FAN STACKS -->
+    <div class="ow-fan-row">
+
+      <!-- Education -->
+      <div class="ow-fan reveal delay-1" onclick="openLightbox('education')">
+        <div class="ow-fan-stack">
+          <div class="ow-fan-card"><img src="assets/work/edu-6.jpg" alt="Education carousel slide 6" loading="lazy"></div>
+          <div class="ow-fan-card"><img src="assets/work/edu-2.jpg" alt="Education carousel slide 2" loading="lazy"></div>
+          <div class="ow-fan-card"><img src="assets/work/edu-1.jpg" alt="Education carousel slide 1" loading="lazy"></div>
+          <div class="ow-fan-overlay"><span class="ow-overlay-text">View All Slides</span></div>
+          <div class="ow-fan-count">6 Slides</div>
+        </div>
+        <div class="ow-fan-meta">
+          <div class="ow-fan-industry">Education</div>
+          <div class="ow-fan-title">Learning Made Visual</div>
+          <div class="ow-fan-desc">A structured carousel built to simplify complex topics and drive saves &amp; shares.</div>
+        </div>
+      </div>
+
+      <!-- Healthcare -->
+      <div class="ow-fan reveal delay-2" onclick="openLightbox('healthcare')">
+        <div class="ow-fan-stack">
+          <div class="ow-fan-card"><img src="assets/work/health-6.jpg" alt="Healthcare carousel slide 6" loading="lazy"></div>
+          <div class="ow-fan-card"><img src="assets/work/health-2.jpg" alt="Healthcare carousel slide 2" loading="lazy"></div>
+          <div class="ow-fan-card"><img src="assets/work/health-1.jpg" alt="Healthcare carousel slide 1" loading="lazy"></div>
+          <div class="ow-fan-overlay"><span class="ow-overlay-text">View All Slides</span></div>
+          <div class="ow-fan-count">6 Slides</div>
+        </div>
+        <div class="ow-fan-meta">
+          <div class="ow-fan-industry">Healthcare</div>
+          <div class="ow-fan-title">Trust-Building Content</div>
+          <div class="ow-fan-desc">Health-focused carousel designed to build credibility and educate the audience.</div>
+        </div>
+      </div>
+
+      <!-- Food & Beverages -->
+      <div class="ow-fan reveal delay-3" onclick="openLightbox('food')">
+        <div class="ow-fan-stack">
+          <div class="ow-fan-card"><img src="assets/work/food-6.jpg" alt="Food carousel slide 6" loading="lazy"></div>
+          <div class="ow-fan-card"><img src="assets/work/food-2.jpg" alt="Food carousel slide 2" loading="lazy"></div>
+          <div class="ow-fan-card"><img src="assets/work/food-1.jpg" alt="Food carousel slide 1" loading="lazy"></div>
+          <div class="ow-fan-overlay"><span class="ow-overlay-text">View All Slides</span></div>
+          <div class="ow-fan-count">6 Slides</div>
+        </div>
+        <div class="ow-fan-meta">
+          <div class="ow-fan-industry">Food &amp; Beverages</div>
+          <div class="ow-fan-title">Visual Appetite Appeal</div>
+          <div class="ow-fan-desc">Scroll-stopping food content designed for cravings and brand recall.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIDEO SHOWCASE -->
+    <div class="ow-video-row reveal">
+      <div class="ow-video-label">Featured Reel</div>
+      <div class="ow-video-wrap">
+        <div class="ow-video-phone">
+          <div class="ow-video-notch"></div>
+          <video id="ow-reel" src="assets/work/grownx-reel.mp4" loop playsinline poster="assets/work/reel-poster.jpg"></video>
+          <div class="ow-video-phone-frame"></div>
+        </div>
+        <div class="ow-video-info">
+          <div class="ow-video-tag">✦ Graphic Reel</div>
+          <div class="ow-video-title">Content That<br>Keeps You Watching</div>
+          <div class="ow-video-desc">A motion graphic reel crafted to stop the scroll, communicate the brand message, and keep viewers engaged from the first frame to the last.</div>
+          <div class="ow-video-stats">
+            <div><div class="ow-video-stat-val">9:16</div><div class="ow-video-stat-lbl">Format</div></div>
+            <div><div class="ow-video-stat-val">100%</div><div class="ow-video-stat-lbl">Original</div></div>
+            <div><div class="ow-video-stat-val">Motion</div><div class="ow-video-stat-lbl">Graphics</div></div>
+          </div>
+          <button class="ow-video-play" onclick="toggleReel(this)">▶ Play Reel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="ow-lb" id="ow-lb" onclick="lbBgClose(event)">
+  <div class="ow-lb-title" id="lb-title">Education — Carousel</div>
+  <button class="ow-lb-close" onclick="closeLightbox()">✕</button>
+  <div class="ow-lb-main">
+    <button class="ow-lb-prev" onclick="lbMove(-1)">‹</button>
+    <img class="ow-lb-img" id="lb-img" src="" alt="Carousel slide">
+    <button class="ow-lb-next" onclick="lbMove(1)">›</button>
+  </div>
+  <div class="ow-lb-dots" id="lb-dots"></div>
+  <div class="ow-lb-counter" id="lb-counter">1 / 6</div>
+  <div class="ow-lb-industry" id="lb-industry"></div>
+</div>
 
 <!-- WHY FAIL -->
 <section id="why-fail">
@@ -735,6 +928,129 @@ window.addEventListener('scroll',()=>{
     if(a.getAttribute('href')==='#'+current) a.style.color='var(--c1)';
   });
 },{ passive:true });
+
+// ── OUR WORK — LIGHTBOX ──
+const lbData = {
+  education: {
+    label: 'Education',
+    title: 'Education — Carousel',
+    images: [
+      'assets/work/edu-1.jpg',
+      'assets/work/edu-2.jpg',
+      'assets/work/edu-3.jpg',
+      'assets/work/edu-4.jpg',
+      'assets/work/edu-5.jpg',
+      'assets/work/edu-6.jpg',
+    ]
+  },
+  healthcare: {
+    label: 'Healthcare',
+    title: 'Healthcare — Carousel',
+    images: [
+      'assets/work/health-1.jpg',
+      'assets/work/health-2.jpg',
+      'assets/work/health-3.jpg',
+      'assets/work/health-4.jpg',
+      'assets/work/health-5.jpg',
+      'assets/work/health-6.jpg',
+    ]
+  },
+  food: {
+    label: 'Food & Beverages',
+    title: 'Food & Beverages — Carousel',
+    images: [
+      'assets/work/food-1.jpg',
+      'assets/work/food-2.jpg',
+      'assets/work/food-3.jpg',
+      'assets/work/food-4.jpg',
+      'assets/work/food-5.jpg',
+      'assets/work/food-6.jpg',
+    ]
+  }
+};
+
+let lbCurrent = null;
+let lbIndex = 0;
+
+function openLightbox(key) {
+  lbCurrent = key;
+  lbIndex = 0;
+  const lb = document.getElementById('ow-lb');
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  renderLb();
+}
+
+function closeLightbox() {
+  document.getElementById('ow-lb').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function lbBgClose(e) {
+  if(e.target === document.getElementById('ow-lb')) closeLightbox();
+}
+
+function renderLb() {
+  const data = lbData[lbCurrent];
+  const img = document.getElementById('lb-img');
+  const counter = document.getElementById('lb-counter');
+  const title = document.getElementById('lb-title');
+  const industry = document.getElementById('lb-industry');
+  const dots = document.getElementById('lb-dots');
+
+  title.textContent = data.title;
+  industry.textContent = data.label;
+  img.src = data.images[lbIndex];
+  img.alt = data.label + ' slide ' + (lbIndex+1);
+  counter.textContent = (lbIndex+1) + ' / ' + data.images.length;
+
+  // rebuild dots
+  dots.innerHTML = '';
+  data.images.forEach((_,i) => {
+    const d = document.createElement('div');
+    d.className = 'ow-lb-dot' + (i===lbIndex?' active':'');
+    d.onclick = () => { lbIndex=i; renderLb(); };
+    dots.appendChild(d);
+  });
+}
+
+function lbMove(dir) {
+  const len = lbData[lbCurrent].images.length;
+  lbIndex = (lbIndex + dir + len) % len;
+  renderLb();
+}
+
+// keyboard nav
+document.addEventListener('keydown', e => {
+  const lb = document.getElementById('ow-lb');
+  if(!lb.classList.contains('open')) return;
+  if(e.key==='ArrowRight') lbMove(1);
+  if(e.key==='ArrowLeft')  lbMove(-1);
+  if(e.key==='Escape')     closeLightbox();
+});
+
+// touch swipe support on lightbox
+(function(){
+  let sx=0;
+  const lb = document.getElementById('ow-lb');
+  lb.addEventListener('touchstart', e=>{ sx=e.touches[0].clientX; },{ passive:true });
+  lb.addEventListener('touchend',   e=>{
+    const dx = e.changedTouches[0].clientX - sx;
+    if(Math.abs(dx)>50) lbMove(dx<0?1:-1);
+  },{ passive:true });
+})();
+
+// ── OUR WORK — REEL PLAY/PAUSE ──
+function toggleReel(btn) {
+  const vid = document.getElementById('ow-reel');
+  if(vid.paused) {
+    vid.play();
+    btn.textContent = '❚❚ Pause Reel';
+  } else {
+    vid.pause();
+    btn.textContent = '▶ Play Reel';
+  }
+}
 </script>
 </body>
 </html>
